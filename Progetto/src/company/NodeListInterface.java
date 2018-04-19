@@ -22,9 +22,9 @@ public interface NodeListInterface <T> {
     public Node<T> getHead();
     public Node<T> getTail();
     public Node<T> getInside(int index);
-    public ArrayList<T> getAllStart (int n);
-    public ArrayList<T> getAllEnd (int n);
-    public ArrayList<T> getAllInside (int start, int end);
+    public NodeListInterface<T> getAllStart (int n);
+    public NodeListInterface<T> getAllEnd (int n);
+    public NodeListInterface<T> getAllInside (int start, int end);
     //setter
     public void setHead(T elem);
     public void setTail(T elem);
@@ -32,5 +32,6 @@ public interface NodeListInterface <T> {
     public void setAllStart (int n, T elem);
     public void setAllEnd (int n, T elem);
     public void setAllInside (int start, int end, T elem);
-    public /*boolean/int*/ find (T elem);
+   /* public *//*boolean/int*//* find (T elem);*/
+    public void printList();
 }
