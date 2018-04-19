@@ -2,6 +2,8 @@ package company;
 
 import java.util.ArrayList;
 
+
+//lista, nodi sono definiti nella classe Node
 public class NodeList <T> implements NodeListInterface <T>{
 
     private Node<T> node;
@@ -217,4 +219,7 @@ public class NodeList <T> implements NodeListInterface <T>{
             n = n.getNext();
         }
     }
+
+
+    //ORDINAMENTO
 }
