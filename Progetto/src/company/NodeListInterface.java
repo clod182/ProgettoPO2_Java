@@ -7,9 +7,9 @@ public interface NodeListInterface <T> {
     public void insertHead(T elem);
     public void insertTail(T elem);
     public void insertInside (T elem,int index);
-    public void insertAllStart (ArrayList<T> lista);
-    public void insertAllEnd (ArrayList<T> lista);
-    public void insertAllInside (ArrayList<T> lista,int index);
+    public void insertAllStart (NodeListInterface<T> lista);
+    public void insertAllEnd (NodeListInterface<T> lista);
+    public void insertAllInside (NodeListInterface<T> lista,int index);
     //remove
     public void removeHead();
     public void removeTail();

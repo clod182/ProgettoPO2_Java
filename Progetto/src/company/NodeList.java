@@ -30,37 +30,34 @@ public class NodeList <T> implements NodeListInterface <T>{
     }
     //inserisce in un indice
     public void insertInside (T elem,int index){
-        int count = 0;
-        Node prev = null;
-        while(count != index){
-            count++;
-            prev = node;
-            node = node.getNext();
+        if(index == 0){
+            node = new Node<T>(elem,node);
         }
-
-        Node<T> newNode = new Node<T>(elem,node);
-        newNode.setElem(elem);
-
-        newNode.setNext(node);
-        if(count == 0){
-            node = newNode;
-        }else {
-            prev.setNext(newNode);
+        else {
+            int count = 0;
+            Node<T> nodo = node;
+            while (count != (index -1)) {
+                count++;
+                nodo = nodo.getNext();
+            }
+            nodo.setNext(new Node<T>(elem,nodo.getNext()));
         }
         size++;
     }
     //inserisce tutti gli elementi passati all'inizio
-    public void insertAllStart (ArrayList<T> lista){
+    public void insertAllStart (NodeListInterface<T> lista){
         insertAllInside(lista,0);
     }
     //inserisce tutti gli elementi passati alla fine
-    public void insertAllEnd (ArrayList<T> lista){
+    public void insertAllEnd (NodeListInterface<T> lista){
         insertAllInside(lista,size);
     }
     //inserisce tutti gli elementi passati dall'indice spostando i successivi ( quindi inserisco i nodi e si spostano di conseguenza)
-    public void insertAllInside (ArrayList<T> lista,int index){
-        for(int i = 0; i < lista.size(); i ++){
-            insertHead(lista.get(i));
+    public void insertAllInside (NodeListInterface<T> lista,int index){
+        Node<T> nodo = node;
+        for(int i = 0; i < lista.getSize(); i ++){
+            insertInside(nodo.getElem(),index);
+            nodo = nodo.getNext();
         }
     }
 
@@ -143,7 +140,7 @@ public class NodeList <T> implements NodeListInterface <T>{
     public NodeListInterface<T> getAllStart (int n){
         NodeListInterface<T> ris = new NodeList<T>();
         Node<T> nodo = node;
-        for(int i = 0; i < n; i++){
+        for(int i = 0; i <= n ; i++){
             ris.insertTail(nodo.getElem());
             nodo = nodo.getNext();
         }
@@ -236,13 +233,14 @@ public class NodeList <T> implements NodeListInterface <T>{
         return false;
     }
 
-    /*vedere perchè non stampa*/
     public void printList (){
         Node<T> n = node;
+        T elem;
         for(int i = 0; i < size; i ++){
-            System.out.println(n.getElem());
+            System.out.print(n.getElem() + " | ");
             n = n.getNext();
         }
+        System.out.println();
     }
 
 
