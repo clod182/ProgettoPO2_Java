@@ -32,6 +32,7 @@ public interface NodeListInterface <T> {
     public void setAllStart (int n, T elem);
     public void setAllEnd (int n, T elem);
     public void setAllInside (int start, int end, T elem);
-   /* public *//*boolean/int*//* find (T elem);*/
+    public int findIndex (T elem);
+    public boolean find (T elem);
     public void printList();
 }

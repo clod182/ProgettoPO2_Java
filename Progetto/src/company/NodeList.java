@@ -47,6 +47,7 @@ public class NodeList <T> implements NodeListInterface <T>{
         }else {
             prev.setNext(newNode);
         }
+        size++;
     }
     //inserisce tutti gli elementi passati all'inizio
     public void insertAllStart (ArrayList<T> lista){
@@ -186,29 +187,53 @@ public class NodeList <T> implements NodeListInterface <T>{
     }
     //modifica la coda
     public void setTail(T elem){
-
+            getTail().setElem(elem);
     }
     //modifica l'elemento specificato dall'indice
     public void setInside(int index, T elem){
-
+        getInside(index).setElem(elem);
     }
     //modifica tutti i primi n valori con lo stesso valore elem
     public void setAllStart (int n, T elem){
-
+        for(int i = 0; i < n; i++){
+            setHead(elem);
+        }
     }
     //modifica tutti gli n ultimi valori con lo stesso valore elem
     public void setAllEnd (int n, T elem) {
-
+        for(int i = 0; i < n; i++){
+            setTail(elem);
+        }
     }
     //modifica tutti i valori tra i due indici con lo stesso valore elem
     public void setAllInside (int start, int end, T elem){
-
+        int count = 0;
+        while(count < start ){
+            count++;
+        }
+        for(int i = start; i <= end; i++){
+            setInside(i,elem);
+        }
     }
 
 
-
-    public /*boolean/int*/ find (T elem){
-
+    public int findIndex (T elem){
+        Node<T> nodo = node;
+        for(int i = 0; i < size; i ++){
+            if (nodo.getElem().equals(elem)){
+                return i;
+            }
+        }
+        return -1;
+    }
+    public boolean find (T elem){
+        Node<T> nodo = node;
+        for(int i = 0; i < size; i ++){
+            if (nodo.getElem().equals(elem)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /*vedere perchè non stampa*/
