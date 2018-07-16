@@ -1,6 +1,8 @@
 package company;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 
 //lista, nodi sono definiti nella classe Node
@@ -28,36 +30,35 @@ public class NodeList <T> implements NodeListInterface <T>{
     public void insertTail(T elem){
         insertInside(elem,size);
     }
+
+    //ECCEZIONE:
     //inserisce in un indice
-    public void insertInside (T elem,int index){
-        if(index == 0){
-            node = new Node<T>(elem,node);
-        }
-        else {
-            int count = 0;
-            Node<T> nodo = node;
-            while (count != (index -1)) {
-                count++;
-                nodo = nodo.getNext();
+    public void insertInside (T elem,int index) {
+        if (index == 0) {
+            node = new Node<T>(elem, node);
+        } else {
+            Node<T> n = node;
+            while (index-- > 1) {
+                n = n.getNext();
             }
-            nodo.setNext(new Node<T>(elem,nodo.getNext()));
+            n.setNext(new Node<T>(elem, n.getNext()));
         }
         size++;
     }
+
     //inserisce tutti gli elementi passati all'inizio
-    public void insertAllStart (NodeListInterface<T> lista){
+    public void insertAllStart (ArrayList<T> lista){
         insertAllInside(lista,0);
     }
     //inserisce tutti gli elementi passati alla fine
-    public void insertAllEnd (NodeListInterface<T> lista){
+    public void insertAllEnd (ArrayList<T> lista){
         insertAllInside(lista,size);
     }
     //inserisce tutti gli elementi passati dall'indice spostando i successivi ( quindi inserisco i nodi e si spostano di conseguenza)
-    public void insertAllInside (NodeListInterface<T> lista,int index){
-        Node<T> nodo = node;
-        for(int i = 0; i < lista.getSize(); i ++){
-            insertInside(nodo.getElem(),index);
-            nodo = nodo.getNext();
+    public void insertAllInside (ArrayList<T> lista,int index){
+        for(int i = 0; i < lista.size(); i ++){
+            insertInside(lista.get(i),index);
+            index++;
         }
     }
 
@@ -140,7 +141,7 @@ public class NodeList <T> implements NodeListInterface <T>{
     public NodeListInterface<T> getAllStart (int n){
         NodeListInterface<T> ris = new NodeList<T>();
         Node<T> nodo = node;
-        for(int i = 0; i <= n ; i++){
+        for(int i = 0; i < n; i++){
             ris.insertTail(nodo.getElem());
             nodo = nodo.getNext();
         }
@@ -180,69 +181,66 @@ public class NodeList <T> implements NodeListInterface <T>{
 
     //modifica la testa
     public void setHead(T elem){
-        node.setElem(elem);
+        setInside(0,elem);
     }
     //modifica la coda
     public void setTail(T elem){
-            getTail().setElem(elem);
+        setInside(size,elem);
     }
     //modifica l'elemento specificato dall'indice
     public void setInside(int index, T elem){
         getInside(index).setElem(elem);
     }
     //modifica tutti i primi n valori con lo stesso valore elem
+
+    //ECCEZIONE: N NON PUO ESSERE MAGGIORE DI SIZE
     public void setAllStart (int n, T elem){
-        for(int i = 0; i < n; i++){
-            setHead(elem);
-        }
-    }
-    //modifica tutti gli n ultimi valori con lo stesso valore elem
-    public void setAllEnd (int n, T elem) {
-        for(int i = 0; i < n; i++){
-            setTail(elem);
-        }
-    }
-    //modifica tutti i valori tra i due indici con lo stesso valore elem
-    public void setAllInside (int start, int end, T elem){
-        int count = 0;
-        while(count < start ){
-            count++;
-        }
-        for(int i = start; i <= end; i++){
+        for(int i = 0; i < n; i ++){
             setInside(i,elem);
         }
     }
+    //modifica tutti gli n ultimi valori con lo stesso valore elem
 
+    //ECCEZIONE: I NON PUO ESSERE MINORE DI N, N NON PUO ESSERE > DI SIZE
+    public void setAllEnd (int n, T elem) {
+        for(int i = n; i > 0; i ++){
+            setInside(i,elem);
+        }
+    }
+    //modifica tutti i valori tra i due indici con lo stesso valore elem
 
-    public int findIndex (T elem){
-        Node<T> nodo = node;
+    //ECCEZIONE:
+    public void setAllInside (int start, int end, T elem){
+        for(int i = start; i < end; i++){
+            getInside(i).setElem(elem);
+        }
+    }
+
+    public boolean IsFind (T elem){
+        Node n = node;
+        boolean flag = false;
+        for(int i = 0; i < size && flag == false; i ++){
+            flag = (getInside(i).equals(elem)) ? true : false;
+        }
+        return flag;
+    }
+
+    public int pos (T elem){
+        Node n = node;
         for(int i = 0; i < size; i ++){
-            if (nodo.getElem().equals(elem)){
+            if(getInside(i).equals(elem)){
                 return i;
             }
         }
         return -1;
     }
-    public boolean find (T elem){
-        Node<T> nodo = node;
-        for(int i = 0; i < size; i ++){
-            if (nodo.getElem().equals(elem)){
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void printList (){
         Node<T> n = node;
-        T elem;
-        for(int i = 0; i < size; i ++){
-            System.out.print(n.getElem() + " | ");
+        for(int i = 0; i < size -1; i ++){
+            System.out.print(n.getElem());
+            System.out.print(" - ");
             n = n.getNext();
         }
-        System.out.println();
+        System.out.print(n.getElem());
     }
-
-
-    //ORDINAMENTO
 }
