@@ -36,4 +36,9 @@ public interface NodeListInterface <T> {
     public boolean IsFind (T elem);
     public int pos (T elem);
     public void printList();
+    public void printArray(int array[]);
+    //ORDINAMENTO
+    public void sort();
+    public void quickSort(int array[], int left, int right);
+    public int partition(int arr[], int left, int right);
 }

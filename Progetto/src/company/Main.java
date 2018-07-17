@@ -40,5 +40,12 @@ public class Main {
         //System.out.println("\n");
 
         lista.printList();
+
+        lista.sort();
+
+        //System.out.println(lista.getSize());
+        //lista.insertHead(2);
+        //lista.printList();
+        //System.out.println(lista.getSize());
     }
 }

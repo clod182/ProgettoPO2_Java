@@ -10,11 +10,13 @@ public class NodeList <T> implements NodeListInterface <T>{
 
     private Node<T> node;
     private int size; //aggiorno size ogni volta che inserisco un elemento
+    private int[] array;
 
     //COSTRUTTORE
     public NodeList(){
         node = null;
         size = 0;
+        array = new int[size];
     }
 
     //METODI
@@ -241,6 +243,57 @@ public class NodeList <T> implements NodeListInterface <T>{
             System.out.print(" - ");
             n = n.getNext();
         }
-        System.out.print(n.getElem());
+        System.out.print(n.getElem() + "\n");
+    }
+
+    public void printArray(int array[]){
+        for(int i = 0; i < size -1; i ++){
+            System.out.print(array[i]);
+            System.out.print(" - ");
+        }
+        System.out.print(array[size-1] + "\n");
+    }
+
+    //ORDINAMENTO
+
+    public void sort(){
+        array = new int[size];
+        for(int i = 0; i < size; i++){
+            array[i] = (int) node.getElem(); //si puo non castare?
+            node = node.getNext();
+        }
+        quickSort(array,0,size-1);
+        printArray(array);
+    }
+
+    //quicksort
+    //caso migliore : O(n log n)
+    //caso peggiore: O(n^2)
+    public void quickSort(int array[], int left, int right) {
+        int index = partition(array, left, right);
+        if (left < index - 1)
+            quickSort(array, left, index - 1);
+        if (index < right)
+            quickSort(array, index, right);
+    }
+
+    public int partition(int arr[], int left, int right) {
+        int i = left, j = right;
+        int tmp;
+        int pivot = arr[(left + right) / 2];
+        while (i <= j) {
+            while (arr[i] < pivot)
+                i++;
+            while (arr[j] > pivot)
+                j--;
+            if (i <= j) {
+                tmp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = tmp;
+                i++;
+                j--;
+            }
+        }
+        return i;
     }
 }
